@@ -14,6 +14,8 @@
 		<junit.version>4.11</junit.version>
 		<jdk.version>1.6</jdk.version>
 		<log4j.version>1.2.17</log4j.version>
+		<downloadSources>true</downloadSources>
+		<downloadJavadocs>false</downloadJavadocs>
 	</properties>
 
 	<dependencies>
@@ -62,6 +64,14 @@
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<downloadSources>${downloadSources}</downloadSources>
+					<downloadJavadocs>${downloadJavadocs}</downloadJavadocs>
 				</configuration>
 			</plugin>
 		</plugins>
