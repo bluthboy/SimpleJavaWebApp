@@ -13,7 +13,7 @@
 
 	<!-- This bean initializes needed database objects like users, roles etc, 
 		refers the above created beans -->
-	<bean id="contentInitializer" class="de.rixtrick.init.ContentInitializer"
+	<bean id="contentInitializer" class="de.rixtrick.demo.init.ContentInitializer"
 		init-method="initializeDatabaseContent" />
 
 </beans>

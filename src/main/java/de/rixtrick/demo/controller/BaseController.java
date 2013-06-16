@@ -1,4 +1,4 @@
-package de.rixtrick.controller;
+package de.rixtrick.demo.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class BaseController {
 	@RequestMapping(value = "/welcome/{name}", method = RequestMethod.GET)
 	public String welcomeName(@PathVariable String name, ModelMap model) {
 
-		LOGGER.info("starting welcomeName() method");
+		LOGGER.info("starting welcomeName() method with name '" + name + "'");
 
 		model.addAttribute("message", "Maven Web Project + Spring 3 MVC - "
 				+ name);

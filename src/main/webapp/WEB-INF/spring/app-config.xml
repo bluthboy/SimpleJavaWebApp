@@ -6,9 +6,12 @@
 	http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.2.xsd
 	http://www.springframework.org/schema/context classpath:/org/springframework/context/config/spring-context-3.2.xsd">
 
-	<context:component-scan base-package="de.rixtrick.controller" />
+	<context:component-scan base-package="de.rixtrick.demo" />
 
 	<!-- Configures the initialization -->
 	<import resource="initialize-beans.xml" />
+
+	<!-- Configures Hibernate - database configuration -->
+	<import resource="db-config.xml" />
 
 </beans>

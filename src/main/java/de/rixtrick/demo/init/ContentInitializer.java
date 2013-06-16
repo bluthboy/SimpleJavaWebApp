@@ -1,4 +1,4 @@
-package de.rixtrick.init;
+package de.rixtrick.demo.init;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
