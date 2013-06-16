@@ -8,7 +8,14 @@
 
 	<context:component-scan base-package="de.rixtrick.controller" />
 
-	<!-- Configures the initialization -->
-	<import resource="initialize-beans.xml" />
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/client/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
 
 </beans>

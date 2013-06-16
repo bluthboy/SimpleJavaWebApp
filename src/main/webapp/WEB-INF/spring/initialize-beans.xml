@@ -6,9 +6,14 @@
 	http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.2.xsd
 	http://www.springframework.org/schema/context classpath:/org/springframework/context/config/spring-context-3.2.xsd">
 
-	<context:component-scan base-package="de.rixtrick.controller" />
+	<!-- Flag enabling/disabling some initialization on startup -->
+	<bean id="contentInitEnabled" class="java.lang.Boolean">
+		<constructor-arg value="true"></constructor-arg>
+	</bean>
 
-	<!-- Configures the initialization -->
-	<import resource="initialize-beans.xml" />
+	<!-- This bean initializes needed database objects like users, roles etc, 
+		refers the above created beans -->
+	<bean id="contentInitializer" class="de.rixtrick.init.ContentInitializer"
+		init-method="initializeDatabaseContent" />
 
 </beans>

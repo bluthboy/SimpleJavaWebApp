@@ -5,6 +5,17 @@
 
 	<display-name>Simple Java Spring Web Application</display-name>
 
+	<!-- Log4J configuration -->
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/log4j.properties</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+
+	<!-- Context configuration -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/app-config.xml</param-value>
@@ -14,13 +25,15 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+	<!-- Servlets -->
+
 	<servlet>
 		<servlet-name>demoServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				/WEB-INF/spring/app-config.xml
+				/WEB-INF/spring/demo-servlet-config.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
@@ -31,17 +44,10 @@
 		<url-pattern>/demo-servlet/*</url-pattern>
 	</servlet-mapping>
 
+	<!-- Misc -->
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
-	<!-- Log4J configuration -->
-	<context-param>
-		<param-name>log4jConfigLocation</param-name>
-		<param-value>/WEB-INF/log4j.properties</param-value>
-	</context-param>
-
-	<listener>
-		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-	</listener>
 </web-app>
