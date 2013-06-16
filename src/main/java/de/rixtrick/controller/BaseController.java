@@ -21,6 +21,8 @@ public class BaseController {
 		model.addAttribute("message",
 				"Maven Web Project + Spring 3 MVC - welcome()");
 
+		LOGGER.debug("executed default welcome");
+
 		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return "index";
 
@@ -33,6 +35,9 @@ public class BaseController {
 
 		model.addAttribute("message", "Maven Web Project + Spring 3 MVC - "
 				+ name);
+
+		LOGGER.debug("executed enhanced welcome");
+
 		return "index";
 
 	}
