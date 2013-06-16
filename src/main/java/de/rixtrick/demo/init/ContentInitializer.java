@@ -4,6 +4,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import de.rixtrick.demo.model.User;
+import de.rixtrick.demo.service.UserService;
+
 /**
  * @author buehner
  * 
@@ -23,11 +26,29 @@ public class ContentInitializer {
 	private Boolean contentInitEnabled;
 
 	/**
+	 * 
+	 */
+	@Autowired
+	private UserService userService;
+
+	/**
 	 * The method called on initialization
 	 */
 	public void initializeDatabaseContent() {
+
+		String userName = "peterX123";
+
 		if (this.contentInitEnabled.equals(true)) {
 			LOGGER.info("INITIALIZING DATABASE OR SOMETHING!");
+
+			User user = new User(userName);
+			user.setFirstName("Peter");
+			user.setLastName("Mustermann");
+			user.setPassword("unratbar.23");
+			userService.saveUser(user);
+
+			LOGGER.info("SAVED A USER");
+
 		} else {
 			LOGGER.info("NOT INITIALIZING ANYTHING!");
 		}
