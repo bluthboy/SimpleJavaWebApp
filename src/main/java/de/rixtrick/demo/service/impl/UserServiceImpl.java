@@ -39,9 +39,8 @@ public class UserServiceImpl implements UserService {
 		userDao.delete(user);
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public List findUsers(String user) {
+	public List<User> findUsers(String user) {
 		return userDao.findUsers(user);
 	}
 }

@@ -1,5 +1,7 @@
 package de.rixtrick.demo.init;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,7 +28,12 @@ public class ContentInitializer {
 	private Boolean contentInitEnabled;
 
 	/**
-	 * 
+	 * Number of dummy-entries to create when contentInitEnabled=true
+	 */
+	private int usersToCreate;
+
+	/**
+	 * The Service to manipulate users
 	 */
 	@Autowired
 	private UserService userService;
@@ -36,31 +43,61 @@ public class ContentInitializer {
 	 */
 	public void initializeDatabaseContent() {
 
-		String userName = "peterX123";
-
 		if (this.contentInitEnabled.equals(true)) {
-			LOGGER.info("INITIALIZING DATABASE OR SOMETHING!");
+			LOGGER.info("***INITIALIZING DATABASE WITH " + usersToCreate
+					+ " DUMMY USERS***");
 
-			User user = new User(userName);
-			user.setFirstName("Peter");
-			user.setLastName("Mustermann");
-			user.setPassword("unratbar.23");
-			userService.saveUser(user);
+			String userName = "peter";
 
-			LOGGER.info("SAVED A USER");
+			for (int i = 0; i < usersToCreate; i++) {
+				String dummy = userName + i;
+				User user = new User(dummy);
+				user.setFirstName(dummy);
+				user.setLastName(dummy);
+				user.setPassword(dummy);
+				userService.saveUser(user);
+				LOGGER.debug("SAVED USER " + dummy);
+			}
+			LOGGER.info("***ADDED " + usersToCreate + " DUMMY USERS***");
+			LOGGER.info("***TRYING TO FIND SOME OF THESE USERS***");
+			String likeName = "peter23";
+			List<User> users = userService.findUsers(likeName);
+			LOGGER.info("***FOUND " + users.size() + " USERS LIKE " + likeName
+					+ "***");
+			for (User u : users) {
+				LOGGER.debug(u.getUserName() + u.getCreatedOn());
+			}
 
 		} else {
-			LOGGER.info("NOT INITIALIZING ANYTHING!");
+			LOGGER.info("***NOT INITIALIZING ANYTHING!***");
 		}
 	}
 
-	/**
-	 * @param contentInitEnabled
-	 *            if some content should be initialized or not
-	 */
 	@Autowired
 	@Qualifier("contentInitEnabled")
 	public void setContentInitEnabled(Boolean contentInitEnabled) {
 		this.contentInitEnabled = contentInitEnabled;
+	}
+
+	public Boolean getContentInitEnabled() {
+		return contentInitEnabled;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public int getUsersToCreate() {
+		return usersToCreate;
+	}
+
+	@Autowired
+	@Qualifier("numberOfDummies")
+	public void setUsersToCreate(int usersToCreate) {
+		this.usersToCreate = usersToCreate;
 	}
 }

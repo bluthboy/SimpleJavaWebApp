@@ -11,6 +11,11 @@
 		<constructor-arg value="true"></constructor-arg>
 	</bean>
 
+	<!-- Number of dummy-entries to create when starting up in Hibernate/ddl-create-mode -->
+	<bean id="numberOfDummies" class="java.lang.Integer">
+		<constructor-arg value="240"></constructor-arg>
+	</bean>
+
 	<!-- This bean initializes needed database objects like users, roles etc, 
 		refers the above created beans -->
 	<bean id="contentInitializer" class="de.rixtrick.demo.init.ContentInitializer"

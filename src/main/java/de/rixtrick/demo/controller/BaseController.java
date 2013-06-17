@@ -1,17 +1,27 @@
 package de.rixtrick.demo.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import de.rixtrick.demo.model.User;
+import de.rixtrick.demo.service.UserService;
+
 @Controller
 @RequestMapping("/")
 public class BaseController {
 
 	private static final Logger LOGGER = Logger.getLogger(BaseController.class);
+
+	/**
+	 * The Service to manipulate the Users
+	 */
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public String welcome(ModelMap model) {
@@ -36,10 +46,15 @@ public class BaseController {
 		model.addAttribute("message", "Maven Web Project + Spring 3 MVC - "
 				+ name);
 
+		User user = new User(name);
+		user.setFirstName(name);
+		user.setLastName(name);
+		user.setPassword(name);
+		userService.saveUser(user);
+
 		LOGGER.debug("executed enhanced welcome");
 
 		return "index";
 
 	}
-
 }

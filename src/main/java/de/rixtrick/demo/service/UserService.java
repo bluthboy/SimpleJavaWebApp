@@ -16,7 +16,6 @@ public interface UserService {
 
 	void deleteUser(String userName);
 
-	@SuppressWarnings("rawtypes")
-	List findUsers(String user);
+	List<User> findUsers(String user);
 
 }

@@ -18,7 +18,11 @@
 	<!-- Context configuration -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/app-config.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/app-config.xml
+			/WEB-INF/spring/db-config.xml
+			/WEB-INF/spring/initialize-beans.xml
+		</param-value>
 	</context-param>
 
 	<listener>
@@ -26,26 +30,22 @@
 	</listener>
 
 	<!-- Servlets -->
-
 	<servlet>
-		<servlet-name>demoServlet</servlet-name>
+		<servlet-name>demo</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>
-				/WEB-INF/spring/demo-servlet-config.xml
-			</param-value>
+			<param-value>/WEB-INF/spring/demo-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>demoServlet</servlet-name>
+		<servlet-name>demo</servlet-name>
 		<url-pattern>/demo-servlet/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- Misc -->
-
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

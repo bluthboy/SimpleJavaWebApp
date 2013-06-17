@@ -6,11 +6,14 @@
 	http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.2.xsd
 	http://www.springframework.org/schema/context classpath:/org/springframework/context/config/spring-context-3.2.xsd">
 
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
+	<!-- Using c3p0 connection pooling. 
+	     See http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/jdbc.html#jdbc-datasource
+	-->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 
@@ -23,10 +26,9 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.show_sql">false</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
-
 		</property>
 	</bean>
 
