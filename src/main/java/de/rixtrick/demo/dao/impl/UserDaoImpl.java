@@ -12,7 +12,7 @@ import de.rixtrick.demo.model.User;
  * 
  */
 @Repository
-public class UserDaoImpl extends GenericHibernateDaoImpl<User, Integer>
+public class UserDaoImpl extends GenericHibernateDaoImpl<User, String>
 		implements UserDao {
 
 	protected UserDaoImpl() {
@@ -21,7 +21,7 @@ public class UserDaoImpl extends GenericHibernateDaoImpl<User, Integer>
 
 	@Override
 	public List<User> findByExample(User example) {
-		// TODO
+		// TODO some logic
 		return null;
 	}
 

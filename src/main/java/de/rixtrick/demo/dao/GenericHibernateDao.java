@@ -10,8 +10,6 @@ public interface GenericHibernateDao<E, ID> {
 
 	List<E> findAll();
 
-	List<E> findByExample(E example);
-
 	void saveOrUpdate(E e);
 
 	void delete(E e);
