@@ -15,7 +15,7 @@ public interface UserService {
 	void saveUser(User user);
 
 	void deleteUser(String userName);
-
-	List<User> findUsers(String user);
+	
+	public List<User> findUsersLike(String userName);
 
 }

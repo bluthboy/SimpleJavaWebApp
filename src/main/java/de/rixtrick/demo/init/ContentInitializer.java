@@ -59,17 +59,17 @@ public class ContentInitializer {
 				LOGGER.debug("SAVED USER " + dummy);
 			}
 			LOGGER.info("***ADDED " + usersToCreate + " DUMMY USERS***");
-			LOGGER.info("***TRYING TO FIND SOME OF THESE USERS***");
-			String likeName = "peter23";
-			List<User> users = userService.findUsers(likeName);
-			LOGGER.info("***FOUND " + users.size() + " USERS LIKE " + likeName
-					+ "***");
-			for (User u : users) {
-				LOGGER.debug(u.getUserName() + u.getCreatedOn());
-			}
 
 		} else {
 			LOGGER.info("***NOT INITIALIZING ANYTHING!***");
+		}
+		LOGGER.info("***TRYING TO FIND SOME USERS***");
+		String likeName = "peter23";
+		List<User> users = userService.findUsersLike(likeName);
+		LOGGER.info("***FOUND " + users.size() + " USERS LIKE " + likeName
+				+ "***");
+		for (User u : users) {
+			LOGGER.debug(u.getUserName() + u.getCreatedOn());
 		}
 	}
 

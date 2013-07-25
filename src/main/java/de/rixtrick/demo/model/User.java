@@ -11,6 +11,8 @@ import java.util.Date;
 @Table(name = "tbl_user")
 public class User {
 
+	public static final String USER_NAME = "userName";
+
 	@Id
 	@Column(name = "username")
 	private String userName;
@@ -29,8 +31,8 @@ public class User {
 
 	@Transient
 	private Date lastLoginOn;
-	
-	public User(){
+
+	public User() {
 	}
 
 	public User(String userName) {
