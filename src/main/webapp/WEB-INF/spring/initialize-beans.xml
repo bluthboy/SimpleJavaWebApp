@@ -8,10 +8,10 @@
 
 	<!-- Flag enabling/disabling some initialization on startup -->
 	<bean id="contentInitEnabled" class="java.lang.Boolean">
-		<constructor-arg value="true"></constructor-arg>
+		<constructor-arg value="false"></constructor-arg>
 	</bean>
 
-	<!-- Number of dummy-entries to create when starting up in Hibernate/ddl-create-mode -->
+	<!-- Number of dummy-entries to create if contentInitEnabled = true -->
 	<bean id="numberOfDummies" class="java.lang.Integer">
 		<constructor-arg value="240"></constructor-arg>
 	</bean>

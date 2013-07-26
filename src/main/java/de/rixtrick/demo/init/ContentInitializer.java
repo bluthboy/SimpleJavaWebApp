@@ -23,7 +23,7 @@ public class ContentInitializer {
 	private static Logger LOGGER = Logger.getLogger(ContentInitializer.class);
 
 	/**
-	 * Flag symbolizing if something should be initialized by this class
+	 * Flag symbolizing if something should be initialized on startup
 	 */
 	private Boolean contentInitEnabled;
 
@@ -49,7 +49,7 @@ public class ContentInitializer {
 
 			String userName = "peter";
 
-			for (int i = 0; i < usersToCreate; i++) {
+			for (int i = 1; i <= usersToCreate; i++) {
 				String dummy = userName + i;
 				User user = new User(dummy);
 				user.setFirstName(dummy);
@@ -60,16 +60,29 @@ public class ContentInitializer {
 			}
 			LOGGER.info("***ADDED " + usersToCreate + " DUMMY USERS***");
 
+			LOGGER.info("***CREATING ONE SPECIAL USER***");
+			User specialOne = new User();
+			try {
+				Thread.sleep(1337);
+			} catch (InterruptedException ex) {
+				Thread.currentThread().interrupt();
+			}
+			specialOne.setUserName("SpeciaLpeTer23guy");
+			userService.saveUser(specialOne);
+			LOGGER.info("CREATED SPECIAL GUY : " + specialOne);
+
 		} else {
 			LOGGER.info("***NOT INITIALIZING ANYTHING!***");
 		}
+
 		LOGGER.info("***TRYING TO FIND SOME USERS***");
 		String likeName = "peter23";
+
 		List<User> users = userService.findUsersLike(likeName);
 		LOGGER.info("***FOUND " + users.size() + " USERS LIKE " + likeName
 				+ "***");
-		for (User u : users) {
-			LOGGER.debug(u.getUserName() + u.getCreatedOn());
+		for (User user : users) {
+			LOGGER.info(user);
 		}
 	}
 

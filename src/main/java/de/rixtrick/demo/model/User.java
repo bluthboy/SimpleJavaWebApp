@@ -1,43 +1,38 @@
 package de.rixtrick.demo.model;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author buehner
  * 
  */
 @Entity
-@Table(name = "tbl_user")
-public class User {
+@Table(name = "users")
+public class User extends PersistentObject {
 
 	public static final String USER_NAME = "userName";
 
-	@Id
-	@Column(name = "username")
+	private static final long serialVersionUID = -3347746010176522188L;
+
+	@Column(name = "username", nullable = false)
 	private String userName;
 
-	@Column(name = "first_name", nullable = false)
+	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name = "last_name", nullable = false)
+	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "password", nullable = false)
+	@Column(name = "password")
 	private String password;
-
-	@Column(name = "created_on", nullable = false)
-	private Date createdOn;
-
-	@Transient
-	private Date lastLoginOn;
 
 	public User() {
 	}
 
 	public User(String userName) {
 		this.userName = userName;
-		this.createdOn = new Date();
 	}
 
 	public String getUserName() {
@@ -46,6 +41,7 @@ public class User {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+		update();
 	}
 
 	public String getFirstName() {
@@ -72,37 +68,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public Date getLastLoginOn() {
-		return lastLoginOn;
-	}
-
-	public void setLastLoginOn(Date lastLoginOn) {
-		this.lastLoginOn = lastLoginOn;
-	}
-
 	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
+	public String toString() {
+		return userName + ", id : " + getId() + ", created at " + getCreated()
+				+ ", updated at " + getUpdated();
 
-		User user = (User) o;
-
-		return userName.equals(user.userName);
-	}
-
-	@Override
-	public int hashCode() {
-		return 13 * userName.hashCode();
 	}
 
 }
