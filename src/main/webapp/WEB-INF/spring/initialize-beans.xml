@@ -13,7 +13,7 @@
 
 	<!-- Number of dummy-entries to create if contentInitEnabled = true -->
 	<bean id="numberOfDummies" class="java.lang.Integer">
-		<constructor-arg value="240"></constructor-arg>
+		<constructor-arg value="111"></constructor-arg>
 	</bean>
 
 	<!-- This bean initializes needed database objects or similar -->

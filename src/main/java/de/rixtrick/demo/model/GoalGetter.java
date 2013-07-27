@@ -18,15 +18,6 @@ public class GoalGetter extends PersistentObject {
 
 	public static final String CURRENT_TEAM = "current_team";
 
-	public GoalGetter() {
-
-	}
-
-	public GoalGetter(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-
 	@Column(name = "first_name")
 	private String firstName;
 
@@ -41,6 +32,15 @@ public class GoalGetter extends PersistentObject {
 	@ManyToOne
 	@JoinColumn(name = CURRENT_TEAM, updatable = false, insertable = false)
 	private Team currentTeam;
+
+	public GoalGetter() {
+
+	}
+
+	public GoalGetter(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	public String getFirstName() {
 		return firstName;

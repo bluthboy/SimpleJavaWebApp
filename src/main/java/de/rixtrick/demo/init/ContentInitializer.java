@@ -70,15 +70,18 @@ public class ContentInitializer {
 			} catch (InterruptedException ex) {
 				Thread.currentThread().interrupt();
 			}
-			specialTeam.setName("Special abCercLub 23klötß");
+			specialTeam.setName("Special abCercLub 1klötß");
 
 			GoalGetter goalGetter = new GoalGetter();
 			goalGetter.setFirstName("Lionel");
+			try {
+				Thread.sleep(1337);
+			} catch (InterruptedException ex) {
+				Thread.currentThread().interrupt();
+			}
 			goalGetter.setLastName("Messi");
-			// goalGetter.setCurrentTeam(specialTeam);
-			goalGetterService.saveGoalGetter(goalGetter);
 
-			specialTeam.addGoalGetter(goalGetter);
+			specialTeam.getSquad().add(goalGetter);// addGoalGetter(goalGetter);
 
 			teamService.saveTeam(specialTeam);
 			LOGGER.info("CREATED SPECIAL TEAM : " + specialTeam);
@@ -88,7 +91,7 @@ public class ContentInitializer {
 		}
 
 		LOGGER.info("***TRYING TO FIND SOME TEAMS***");
-		String likeName = "cerclub 23";
+		String likeName = "cerclub 1";
 
 		List<Team> teams = teamService.findTeamsLike(likeName);
 		LOGGER.info("***FOUND " + teams.size() + " TEAMS LIKE " + likeName

@@ -3,6 +3,7 @@ package de.rixtrick.demo.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -28,7 +29,7 @@ public class Team extends PersistentObject {
 	@Column(name = "icon")
 	private String iconUrl;
 
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = GoalGetter.CURRENT_TEAM)
 	private Set<GoalGetter> squad = new HashSet<GoalGetter>();
 
@@ -37,10 +38,6 @@ public class Team extends PersistentObject {
 
 	public Team(String name) {
 		this.name = name;
-	}
-
-	public void addGoalGetter(GoalGetter goalGetter) {
-		squad.add(goalGetter);
 	}
 
 	public String getName() {
