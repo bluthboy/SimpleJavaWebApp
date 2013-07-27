@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import de.rixtrick.demo.model.User;
-import de.rixtrick.demo.service.UserService;
+import de.rixtrick.demo.model.Team;
+import de.rixtrick.demo.service.TeamService;
 
 @Controller
 @RequestMapping("/")
@@ -18,10 +18,10 @@ public class BaseController {
 	private static final Logger LOGGER = Logger.getLogger(BaseController.class);
 
 	/**
-	 * The Service to manipulate the Users
+	 * The Service to manipulate the Teams
 	 */
 	@Autowired
-	private UserService userService;
+	private TeamService teamService;
 
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public String welcome(ModelMap model) {
@@ -46,11 +46,11 @@ public class BaseController {
 		model.addAttribute("message", "Maven Web Project + Spring 3 MVC - "
 				+ name);
 
-		User user = new User(name);
-		user.setFirstName(name);
-		user.setLastName(name);
-		user.setPassword(name);
-		userService.saveUser(user);
+		Team team = new Team(name);
+		// team.
+		// team.setLastName(name);
+		// team.setPassword(name);
+		teamService.saveTeam(team);
 
 		LOGGER.debug("executed enhanced welcome");
 

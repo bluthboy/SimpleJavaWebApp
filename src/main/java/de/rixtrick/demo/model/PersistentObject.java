@@ -27,6 +27,8 @@ public abstract class PersistentObject implements Serializable {
 
 	private static final long serialVersionUID = 8132816717625996240L;
 
+	public static final String ID = "id";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
@@ -97,6 +99,11 @@ public abstract class PersistentObject implements Serializable {
 		} else if (!created.equals(other.created))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(id);
 	}
 
 }

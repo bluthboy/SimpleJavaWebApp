@@ -6,8 +6,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import de.rixtrick.demo.model.User;
-import de.rixtrick.demo.service.UserService;
+import de.rixtrick.demo.model.GoalGetter;
+import de.rixtrick.demo.model.Team;
+import de.rixtrick.demo.service.GoalGetterService;
+import de.rixtrick.demo.service.TeamService;
 
 /**
  * @author buehner
@@ -30,13 +32,16 @@ public class ContentInitializer {
 	/**
 	 * Number of dummy-entries to create when contentInitEnabled=true
 	 */
-	private int usersToCreate;
+	private int teamsToCreate;
 
 	/**
-	 * The Service to manipulate users
+	 * The Service to manipulate teams
 	 */
 	@Autowired
-	private UserService userService;
+	private TeamService teamService;
+
+	@Autowired
+	private GoalGetterService goalGetterService;
 
 	/**
 	 * The method called on initialization
@@ -44,45 +49,52 @@ public class ContentInitializer {
 	public void initializeDatabaseContent() {
 
 		if (this.contentInitEnabled.equals(true)) {
-			LOGGER.info("***INITIALIZING DATABASE WITH " + usersToCreate
-					+ " DUMMY USERS***");
+			LOGGER.info("***INITIALIZING DATABASE WITH " + teamsToCreate
+					+ " DUMMY TEAMS***");
 
-			String userName = "peter";
+			String teamName = "FC Soccerclub ";
 
-			for (int i = 1; i <= usersToCreate; i++) {
-				String dummy = userName + i;
-				User user = new User(dummy);
-				user.setFirstName(dummy);
-				user.setLastName(dummy);
-				user.setPassword(dummy);
-				userService.saveUser(user);
-				LOGGER.debug("SAVED USER " + dummy);
+			for (int i = 1; i <= teamsToCreate; i++) {
+				String dummyName = teamName + i;
+				Team team = new Team(dummyName);
+
+				teamService.saveTeam(team);
+				LOGGER.debug("SAVED TEAM " + dummyName);
 			}
-			LOGGER.info("***ADDED " + usersToCreate + " DUMMY USERS***");
+			LOGGER.info("***ADDED " + teamsToCreate + " DUMMY TEAMS***");
 
-			LOGGER.info("***CREATING ONE SPECIAL USER***");
-			User specialOne = new User();
+			LOGGER.info("***CREATING ONE SPECIAL TEAM***");
+			Team specialTeam = new Team();
 			try {
 				Thread.sleep(1337);
 			} catch (InterruptedException ex) {
 				Thread.currentThread().interrupt();
 			}
-			specialOne.setUserName("SpeciaLpeTer23guy");
-			userService.saveUser(specialOne);
-			LOGGER.info("CREATED SPECIAL GUY : " + specialOne);
+			specialTeam.setName("Special abCercLub 23klötß");
+
+			GoalGetter goalGetter = new GoalGetter();
+			goalGetter.setFirstName("Lionel");
+			goalGetter.setLastName("Messi");
+			// goalGetter.setCurrentTeam(specialTeam);
+			goalGetterService.saveGoalGetter(goalGetter);
+
+			specialTeam.addGoalGetter(goalGetter);
+
+			teamService.saveTeam(specialTeam);
+			LOGGER.info("CREATED SPECIAL TEAM : " + specialTeam);
 
 		} else {
 			LOGGER.info("***NOT INITIALIZING ANYTHING!***");
 		}
 
-		LOGGER.info("***TRYING TO FIND SOME USERS***");
-		String likeName = "peter23";
+		LOGGER.info("***TRYING TO FIND SOME TEAMS***");
+		String likeName = "cerclub 23";
 
-		List<User> users = userService.findUsersLike(likeName);
-		LOGGER.info("***FOUND " + users.size() + " USERS LIKE " + likeName
+		List<Team> teams = teamService.findTeamsLike(likeName);
+		LOGGER.info("***FOUND " + teams.size() + " TEAMS LIKE " + likeName
 				+ "***");
-		for (User user : users) {
-			LOGGER.info(user);
+		for (Team team : teams) {
+			LOGGER.info(team);
 		}
 	}
 
@@ -96,21 +108,21 @@ public class ContentInitializer {
 		return contentInitEnabled;
 	}
 
-	public UserService getUserService() {
-		return userService;
+	public TeamService getTeamService() {
+		return teamService;
 	}
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setTeamService(TeamService teamService) {
+		this.teamService = teamService;
 	}
 
-	public int getUsersToCreate() {
-		return usersToCreate;
+	public int getTeamsToCreate() {
+		return teamsToCreate;
 	}
 
 	@Autowired
 	@Qualifier("numberOfDummies")
-	public void setUsersToCreate(int usersToCreate) {
-		this.usersToCreate = usersToCreate;
+	public void setTeamsToCreate(int teamsToCreate) {
+		this.teamsToCreate = teamsToCreate;
 	}
 }

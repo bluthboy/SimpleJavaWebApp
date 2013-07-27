@@ -16,8 +16,7 @@
 		<constructor-arg value="240"></constructor-arg>
 	</bean>
 
-	<!-- This bean initializes needed database objects like users, roles etc, 
-		refers the above created beans -->
+	<!-- This bean initializes needed database objects or similar -->
 	<bean id="contentInitializer" class="de.rixtrick.demo.init.ContentInitializer"
 		init-method="initializeDatabaseContent" />
 
