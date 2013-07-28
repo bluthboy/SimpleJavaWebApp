@@ -5,15 +5,15 @@
 package de.rixtrick.demo.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 /**
  * This class represents the abstract superclass for all entities that are
@@ -34,41 +34,41 @@ public abstract class PersistentObject implements Serializable {
 	@Column(name = "id", updatable = false, nullable = false)
 	private final Long id = null;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created")
-	private final Date created;
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private final DateTime created;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated")
-	private Date updated;
+	@Column(name = "modified")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime modified;
 
 	protected PersistentObject() {
 		this.created = now();
-		this.updated = now();
+		this.modified = now();
 	}
 
-	protected Date now() {
-		return new Date();
+	protected DateTime now() {
+		return new DateTime();
 	}
 
 	protected void update() {
-		this.updated = now();
+		this.modified = now();
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public Date getCreated() {
+	public DateTime getCreated() {
 		return created;
 	}
 
-	public Date getUpdated() {
-		return updated;
+	public DateTime getModified() {
+		return modified;
 	}
 
-	public void setUpdated(Date updated) {
-		this.updated = updated;
+	public void setModified(DateTime modified) {
+		this.modified = modified;
 	}
 
 	/**

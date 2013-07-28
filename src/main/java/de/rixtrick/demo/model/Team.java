@@ -70,7 +70,7 @@ public class Team extends PersistentObject {
 	@Override
 	public String toString() {
 		return name + ", id : " + getId() + ", created at " + getCreated()
-				+ ", updated at " + getUpdated();
+				+ ", updated at " + getModified();
 	}
 
 }

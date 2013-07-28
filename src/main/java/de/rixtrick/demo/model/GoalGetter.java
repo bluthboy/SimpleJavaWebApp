@@ -82,7 +82,7 @@ public class GoalGetter extends PersistentObject {
 	public String toString() {
 		return firstName + " " + lastName + ", id : " + getId()
 				+ ", created at " + getCreated() + ", updated at "
-				+ getUpdated();
+				+ getModified();
 	}
 
 }
