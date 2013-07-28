@@ -22,6 +22,7 @@ public class Team extends PersistentObject {
 
 	public static final String NAME = "name";
 	public static final String ICON_URL = "iconUrl";
+	public static final String SQUAD = "squad";
 
 	@Column(name = "name", nullable = false)
 	private String name;

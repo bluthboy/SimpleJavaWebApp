@@ -14,6 +14,7 @@ import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.ReadableDateTime;
 
 /**
  * This class represents the abstract superclass for all entities that are
@@ -28,6 +29,8 @@ public abstract class PersistentObject implements Serializable {
 	private static final long serialVersionUID = 8132816717625996240L;
 
 	public static final String ID = "id";
+	public static final String CREATED = "created";
+	public static final String MODIFIED = "modified";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,39 +39,31 @@ public abstract class PersistentObject implements Serializable {
 
 	@Column(name = "created")
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private final DateTime created;
+	private final ReadableDateTime created;
 
 	@Column(name = "modified")
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private DateTime modified;
+	private ReadableDateTime modified;
 
 	protected PersistentObject() {
-		this.created = now();
-		this.modified = now();
+		this.created = DateTime.now();
+		this.modified = DateTime.now();
 	}
 
-	protected DateTime now() {
-		return new DateTime();
-	}
-
-	protected void update() {
-		this.modified = now();
+	public void update() {
+		this.modified = DateTime.now();
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public DateTime getCreated() {
+	public ReadableDateTime getCreated() {
 		return created;
 	}
 
-	public DateTime getModified() {
+	public ReadableDateTime getModified() {
 		return modified;
-	}
-
-	public void setModified(DateTime modified) {
-		this.modified = modified;
 	}
 
 	/**

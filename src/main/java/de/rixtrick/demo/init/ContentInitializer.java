@@ -1,8 +1,10 @@
 package de.rixtrick.demo.init;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.log4j.Logger;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -65,21 +67,11 @@ public class ContentInitializer {
 
 			LOGGER.info("***CREATING ONE SPECIAL TEAM***");
 			Team specialTeam = new Team();
-			try {
-				Thread.sleep(1337);
-			} catch (InterruptedException ex) {
-				Thread.currentThread().interrupt();
-			}
 			specialTeam.setName("Special abCercLub 1klötß");
 
-			GoalGetter goalGetter = new GoalGetter();
-			goalGetter.setFirstName("Lionel");
-			try {
-				Thread.sleep(1337);
-			} catch (InterruptedException ex) {
-				Thread.currentThread().interrupt();
-			}
-			goalGetter.setLastName("Messi");
+			GoalGetter goalGetter = new GoalGetter("Lionel", "Messi");
+			goalGetter.setBirthday(new LocalDate(1987, 6, 24));
+			goalGetter.setNationality(new Locale("es_AR"));
 
 			specialTeam.getSquad().add(goalGetter);// addGoalGetter(goalGetter);
 
