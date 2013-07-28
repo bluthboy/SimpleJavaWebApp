@@ -8,6 +8,7 @@ import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import de.rixtrick.demo.model.Goal;
 import de.rixtrick.demo.model.GoalGetter;
 import de.rixtrick.demo.model.Team;
 import de.rixtrick.demo.service.GoalGetterService;
@@ -69,11 +70,23 @@ public class ContentInitializer {
 			Team specialTeam = new Team();
 			specialTeam.setName("Special abCercLub 1klötß");
 
-			GoalGetter goalGetter = new GoalGetter("Lionel", "Messi");
-			goalGetter.setBirthday(new LocalDate(1987, 6, 24));
-			goalGetter.setNationality(new Locale("es_AR"));
+			GoalGetter messi = new GoalGetter("Lionel", "Messi");
+			messi.setBirthday(new LocalDate(1987, 6, 24));
+			messi.setNationality(new Locale("es_AR"));
 
-			specialTeam.getSquad().add(goalGetter);// addGoalGetter(goalGetter);
+			specialTeam.getSquad().add(messi);// addGoalGetter(goalGetter);
+
+			// messi makes an own goal with a penalty
+			Goal goal = new Goal();
+			goal.setMatchMinute(17);
+			goal.setGoalGetter(messi);
+			goal.setHomeGoal(true);
+			goal.setOverTime(false);
+			goal.setOwnGoal(true);
+			goal.setPenalty(true);
+
+			messi.getGoals().add(goal);
+			goalGetterService.saveGoalGetter(messi);
 
 			teamService.saveTeam(specialTeam);
 			LOGGER.info("CREATED SPECIAL TEAM : " + specialTeam);
