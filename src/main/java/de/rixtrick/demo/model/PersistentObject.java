@@ -28,10 +28,6 @@ public abstract class PersistentObject implements Serializable {
 
 	private static final long serialVersionUID = 8132816717625996240L;
 
-	public static final String ID = "id";
-	public static final String CREATED = "created";
-	public static final String MODIFIED = "modified";
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, nullable = false)

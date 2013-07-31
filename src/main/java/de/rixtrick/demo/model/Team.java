@@ -19,17 +19,13 @@ public class Team extends PersistentObject {
 
 	private static final long serialVersionUID = -3347746010176522188L;
 
-	public static final String NAME = "name";
-	public static final String ICON_URL = "iconUrl";
-	public static final String SQUAD = "squad";
-
 	@Column(nullable = false, unique = true, length = 64)
 	private String name;
 
 	@Column
 	private String iconUrl;
 
-	@OneToMany(mappedBy = GoalGetter.CURRENT_TEAM, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "currentTeam", cascade = { CascadeType.ALL })
 	private Set<GoalGetter> squad = new HashSet<GoalGetter>();
 
 	public Team() {

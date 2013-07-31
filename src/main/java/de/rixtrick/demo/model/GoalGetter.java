@@ -25,9 +25,6 @@ public class GoalGetter extends PersistentObject {
 
 	private static final long serialVersionUID = -615330164323187979L;
 
-	public static final String CURRENT_TEAM = "currentTeam";
-	public static final String GOALS = "goals";
-
 	@Column(length = 64)
 	private String firstName;
 
@@ -45,10 +42,10 @@ public class GoalGetter extends PersistentObject {
 	private String position;
 
 	@ManyToOne
-	@JoinColumn(name = GoalGetter.CURRENT_TEAM)
+	@JoinColumn(name = "team_id")
 	private Team currentTeam;
 
-	@OneToMany(mappedBy = Goal.GOAL_GETTER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "goalGetter", cascade = { CascadeType.ALL })
 	private Set<Goal> goals = new HashSet<Goal>();
 
 	public GoalGetter() {

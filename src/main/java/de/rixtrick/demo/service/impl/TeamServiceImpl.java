@@ -25,7 +25,7 @@ public class TeamServiceImpl implements TeamService {
 
 	@Override
 	public Team findByTeamName(String name) {
-		Criterion criterion = Restrictions.eq(Team.NAME, name);
+		Criterion criterion = Restrictions.eq("name", name);
 
 		List<Team> teamList = teamDao.findByCriteria(criterion);
 
@@ -51,7 +51,7 @@ public class TeamServiceImpl implements TeamService {
 
 	@Override
 	public List<Team> findTeamsLike(String name) {
-		Criterion criterion = Restrictions.ilike(Team.NAME, "%" + name + "%");
+		Criterion criterion = Restrictions.ilike("name", "%" + name + "%");
 		return teamDao.findByCriteria(criterion);
 	}
 
