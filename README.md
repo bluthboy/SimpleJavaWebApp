@@ -4,7 +4,6 @@ Using
   - Spring 3
   - Hibernate 4
   - PostgreSQL 9.1
-  
   - c3p0 Connection Pooling
   - Jodatime
 
