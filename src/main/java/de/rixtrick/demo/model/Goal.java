@@ -27,7 +27,7 @@ public class Goal extends PersistentObject {
 	Integer matchMinute;
 
 	@ManyToOne
-	@JoinColumn(name = GOAL_GETTER)
+	@JoinColumn(name = Goal.GOAL_GETTER)
 	private GoalGetter goalGetter;
 
 	@Column

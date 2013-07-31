@@ -45,7 +45,7 @@ public class GoalGetter extends PersistentObject {
 	private String position;
 
 	@ManyToOne
-	@JoinColumn(name = CURRENT_TEAM)
+	@JoinColumn(name = GoalGetter.CURRENT_TEAM)
 	private Team currentTeam;
 
 	@OneToMany(mappedBy = Goal.GOAL_GETTER, cascade = { CascadeType.ALL })
