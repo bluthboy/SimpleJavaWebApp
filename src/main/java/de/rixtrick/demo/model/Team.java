@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "TEAMS")
+@Table
 public class Team extends PersistentObject {
 
 	private static final long serialVersionUID = -3347746010176522188L;
@@ -23,10 +23,10 @@ public class Team extends PersistentObject {
 	public static final String ICON_URL = "iconUrl";
 	public static final String SQUAD = "squad";
 
-	@Column(name = "name", nullable = false, unique = true, length = 64)
+	@Column(nullable = false, unique = true, length = 64)
 	private String name;
 
-	@Column(name = "icon")
+	@Column
 	private String iconUrl;
 
 	@OneToMany(mappedBy = GoalGetter.CURRENT_TEAM, cascade = { CascadeType.ALL })

@@ -34,14 +34,14 @@ public abstract class PersistentObject implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
+	@Column(updatable = false, nullable = false)
 	private final Integer id = null;
 
-	@Column(name = "created")
+	@Column
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private final ReadableDateTime created;
 
-	@Column(name = "modified")
+	@Column
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private ReadableDateTime modified;
 

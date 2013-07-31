@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "GOALS")
+@Table
 public class Goal extends PersistentObject {
 
 	private static final long serialVersionUID = -5973714555707116724L;
@@ -23,26 +23,26 @@ public class Goal extends PersistentObject {
 
 	// TODO Match
 
-	@Column(name = "matchMinute")
+	@Column
 	Integer matchMinute;
 
 	@ManyToOne
 	@JoinColumn(name = GOAL_GETTER)
 	private GoalGetter goalGetter;
 
-	@Column(name = "homeGoal")
+	@Column
 	private boolean homeGoal;
 
-	@Column(name = "penalty")
+	@Column
 	private boolean penalty = false;
 
-	@Column(name = "ownGoal")
+	@Column
 	private boolean ownGoal = false;
 
-	@Column(name = "overTime")
+	@Column
 	private boolean overTime = false;
 
-	@Column(name = "comment")
+	@Column
 	private String comment;
 
 	public Goal() {

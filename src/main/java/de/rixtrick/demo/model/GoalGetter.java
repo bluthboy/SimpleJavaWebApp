@@ -20,7 +20,7 @@ import org.joda.time.LocalDate;
  * 
  */
 @Entity
-@Table(name = "GOALGETTERS")
+@Table
 public class GoalGetter extends PersistentObject {
 
 	private static final long serialVersionUID = -615330164323187979L;
@@ -28,20 +28,20 @@ public class GoalGetter extends PersistentObject {
 	public static final String CURRENT_TEAM = "currentTeam";
 	public static final String GOALS = "goals";
 
-	@Column(name = "first_name", length = 64)
+	@Column(length = 64)
 	private String firstName;
 
-	@Column(name = "last_name", length = 64)
+	@Column(length = 64)
 	private String lastName;
 
-	@Column(name = "nationality", length = 8)
+	@Column(length = 8)
 	private Locale nationality;
 
-	@Column(name = "birthday")
+	@Column
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate birthday;
 
-	@Column(name = "position")
+	@Column
 	private String position;
 
 	@ManyToOne
