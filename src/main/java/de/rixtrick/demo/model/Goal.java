@@ -55,7 +55,6 @@ public class Goal extends PersistentObject {
 
 	public void setMatchMinute(Integer matchMinute) {
 		this.matchMinute = matchMinute;
-		update();
 	}
 
 	public GoalGetter getGoalGetter() {
@@ -64,7 +63,6 @@ public class Goal extends PersistentObject {
 
 	public void setGoalGetter(GoalGetter goalGetter) {
 		this.goalGetter = goalGetter;
-		update();
 	}
 
 	public boolean isHomeGoal() {
@@ -73,7 +71,6 @@ public class Goal extends PersistentObject {
 
 	public void setHomeGoal(boolean homeGoal) {
 		this.homeGoal = homeGoal;
-		update();
 	}
 
 	public boolean isPenalty() {
@@ -82,7 +79,6 @@ public class Goal extends PersistentObject {
 
 	public void setPenalty(boolean penalty) {
 		this.penalty = penalty;
-		update();
 	}
 
 	public boolean isOwnGoal() {
@@ -91,7 +87,6 @@ public class Goal extends PersistentObject {
 
 	public void setOwnGoal(boolean ownGoal) {
 		this.ownGoal = ownGoal;
-		update();
 	}
 
 	public boolean isOverTime() {
@@ -100,7 +95,6 @@ public class Goal extends PersistentObject {
 
 	public void setOverTime(boolean overTime) {
 		this.overTime = overTime;
-		update();
 	}
 
 	public String getComment() {
@@ -109,6 +103,5 @@ public class Goal extends PersistentObject {
 
 	public void setComment(String comment) {
 		this.comment = comment;
-		update();
 	}
 }

@@ -65,7 +65,6 @@ public class GoalGetter extends PersistentObject {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-		update();
 	}
 
 	public String getLastName() {
@@ -74,7 +73,6 @@ public class GoalGetter extends PersistentObject {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-		update();
 	}
 
 	public Locale getNationality() {
@@ -83,7 +81,6 @@ public class GoalGetter extends PersistentObject {
 
 	public void setNationality(Locale nationality) {
 		this.nationality = nationality;
-		update();
 	}
 
 	public LocalDate getBirthday() {
@@ -92,7 +89,6 @@ public class GoalGetter extends PersistentObject {
 
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
-		update();
 	}
 
 	public String getPosition() {
@@ -101,7 +97,6 @@ public class GoalGetter extends PersistentObject {
 
 	public void setPosition(String position) {
 		this.position = position;
-		update();
 	}
 
 	public Team getCurrentTeam() {
@@ -110,7 +105,6 @@ public class GoalGetter extends PersistentObject {
 
 	public void setCurrentTeam(Team currentTeam) {
 		this.currentTeam = currentTeam;
-		update();
 	}
 
 	public Set<Goal> getGoals() {
@@ -119,7 +113,6 @@ public class GoalGetter extends PersistentObject {
 
 	public void setGoals(Set<Goal> goals) {
 		this.goals = goals;
-		update();
 	}
 
 	@Override

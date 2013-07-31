@@ -47,7 +47,6 @@ public class Team extends PersistentObject {
 
 	public void setName(String name) {
 		this.name = name;
-		update();
 	}
 
 	public String getIconUrl() {
@@ -56,7 +55,6 @@ public class Team extends PersistentObject {
 
 	public void setIconUrl(String iconUrl) {
 		this.iconUrl = iconUrl;
-		update();
 	}
 
 	public Set<GoalGetter> getSquad() {
@@ -65,7 +63,6 @@ public class Team extends PersistentObject {
 
 	public void setSquad(Set<GoalGetter> squad) {
 		this.squad = squad;
-		update();
 	}
 
 	@Override

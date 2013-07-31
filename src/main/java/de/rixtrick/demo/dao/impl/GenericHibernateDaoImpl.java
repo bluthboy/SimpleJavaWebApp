@@ -7,15 +7,17 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.rixtrick.demo.dao.GenericHibernateDao;
+import de.rixtrick.demo.model.PersistentObject;
 
 /**
  * @author buehner
  * 
  */
-public abstract class GenericHibernateDaoImpl<E, ID extends Serializable>
+public abstract class GenericHibernateDaoImpl<E extends PersistentObject, ID extends Serializable>
 		implements GenericHibernateDao<E, ID> {
 
 	/**
@@ -44,8 +46,7 @@ public abstract class GenericHibernateDaoImpl<E, ID extends Serializable>
 	}
 
 	/**
-	 * Returns all Entities by calling
-	 * findByCriteria(), i.e. without arguments.
+	 * Returns all Entities by calling findByCriteria(), i.e. without arguments.
 	 * 
 	 * @see GenericHibernateDaoImpl#findByCriteria(Criterion...)
 	 * @return All entities
@@ -57,6 +58,7 @@ public abstract class GenericHibernateDaoImpl<E, ID extends Serializable>
 
 	@Override
 	public void saveOrUpdate(E e) {
+		e.setModified(DateTime.now());
 		getSession().saveOrUpdate(e);
 	}
 
@@ -66,11 +68,11 @@ public abstract class GenericHibernateDaoImpl<E, ID extends Serializable>
 	}
 
 	/**
-	 * Gets the results, that match the variable number
-	 * of passed criterions. Call this method without
-	 * arguments to find all entities.
+	 * Gets the results, that match a variable number of passed criterions. Call
+	 * this method without arguments to find all entities.
 	 * 
-	 * @param criterion A variable number of hibernate criterions
+	 * @param criterion
+	 *            A variable number of hibernate criterions
 	 * @return Entities matching the passed hibernate criterions
 	 */
 	@SuppressWarnings("unchecked")

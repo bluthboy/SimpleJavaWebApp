@@ -50,10 +50,6 @@ public abstract class PersistentObject implements Serializable {
 		this.modified = DateTime.now();
 	}
 
-	public void update() {
-		this.modified = DateTime.now();
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -64,6 +60,10 @@ public abstract class PersistentObject implements Serializable {
 
 	public ReadableDateTime getModified() {
 		return modified;
+	}
+
+	public void setModified(ReadableDateTime modified) {
+		this.modified = modified;
 	}
 
 	/**
