@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.rixtrick.demo.model.Goal;
 import de.rixtrick.demo.model.GoalGetter;
@@ -21,6 +22,7 @@ import de.rixtrick.demo.service.TeamService;
  *         Class to initialize some kind of content
  * 
  */
+@Transactional
 public class ContentInitializer {
 
 	/**
