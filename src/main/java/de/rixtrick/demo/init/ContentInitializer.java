@@ -12,6 +12,7 @@ import de.rixtrick.demo.model.Goal;
 import de.rixtrick.demo.model.GoalGetter;
 import de.rixtrick.demo.model.Team;
 import de.rixtrick.demo.service.GoalGetterService;
+import de.rixtrick.demo.service.GoalService;
 import de.rixtrick.demo.service.TeamService;
 
 /**
@@ -37,14 +38,14 @@ public class ContentInitializer {
 	 */
 	private int teamsToCreate;
 
-	/**
-	 * The Service to manipulate teams
-	 */
 	@Autowired
 	private TeamService teamService;
 
 	@Autowired
 	private GoalGetterService goalGetterService;
+
+	@Autowired
+	private GoalService goalService;
 
 	/**
 	 * The method called on initialization
@@ -52,8 +53,8 @@ public class ContentInitializer {
 	public void initializeDatabaseContent() {
 
 		if (this.contentInitEnabled.equals(true)) {
-			LOGGER.info("***INITIALIZING DATABASE WITH " + teamsToCreate
-					+ " DUMMY TEAMS***");
+			LOGGER.info("Initializing database with " + teamsToCreate
+					+ " dummy teams");
 
 			String teamName = "FC Soccerclub ";
 
@@ -62,19 +63,22 @@ public class ContentInitializer {
 				Team team = new Team(dummyName);
 
 				teamService.saveTeam(team);
-				LOGGER.debug("SAVED TEAM " + dummyName);
+				LOGGER.debug("Saved Team " + dummyName);
 			}
-			LOGGER.info("***ADDED " + teamsToCreate + " DUMMY TEAMS***");
+			LOGGER.info("Added " + teamsToCreate + " dummy teams.");
 
-			LOGGER.info("***CREATING ONE SPECIAL TEAM***");
-			Team specialTeam = new Team();
-			specialTeam.setName("Special abCercLub 1klötß");
+			Team specialTeam = new Team("Special SocCeRcLUB 1900");
+			teamService.saveTeam(specialTeam);
+			LOGGER.info("Created special team : " + specialTeam);
 
 			GoalGetter messi = new GoalGetter("Lionel", "Messi");
 			messi.setBirthday(new LocalDate(1987, 6, 24));
 			messi.setNationality(new Locale("es_AR"));
+			messi.setCurrentTeam(specialTeam);
+			goalGetterService.saveGoalGetter(messi);
+			LOGGER.info("Created player " + messi);
 
-			specialTeam.getSquad().add(messi);// addGoalGetter(goalGetter);
+			// specialTeam.getSquad().add(messi);// addGoalGetter(goalGetter);
 
 			// messi makes an own goal with a penalty
 			Goal goal = new Goal();
@@ -84,26 +88,18 @@ public class ContentInitializer {
 			goal.setOverTime(false);
 			goal.setOwnGoal(true);
 			goal.setPenalty(true);
-
-			messi.getGoals().add(goal);
-			goalGetterService.saveGoalGetter(messi);
-
-			teamService.saveTeam(specialTeam);
-			LOGGER.info("CREATED SPECIAL TEAM : " + specialTeam);
+			goalService.saveGoal(goal);
+			LOGGER.info("Saved a strange goal with ID " + goal.getId());
 
 		} else {
-			LOGGER.info("***NOT INITIALIZING ANYTHING!***");
+			LOGGER.info("Not initializing anything");
 		}
 
-		LOGGER.info("***TRYING TO FIND SOME TEAMS***");
-		String likeName = "cerclub 1";
+		String likeName = "ceRclub 1";
+		LOGGER.info("Trying to find some teams like '" + likeName + "'");
 
 		List<Team> teams = teamService.findTeamsLike(likeName);
-		LOGGER.info("***FOUND " + teams.size() + " TEAMS LIKE " + likeName
-				+ "***");
-		for (Team team : teams) {
-			LOGGER.info(team);
-		}
+		LOGGER.info("Found " + teams.size() + " teams.");
 	}
 
 	@Autowired

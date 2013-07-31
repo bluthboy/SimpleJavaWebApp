@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,14 +23,13 @@ public class Team extends PersistentObject {
 	public static final String ICON_URL = "iconUrl";
 	public static final String SQUAD = "squad";
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", nullable = false, unique = true, length = 64)
 	private String name;
 
 	@Column(name = "icon")
 	private String iconUrl;
 
-	@OneToMany(cascade = { CascadeType.ALL })
-	@JoinColumn(name = GoalGetter.CURRENT_TEAM)
+	@OneToMany(mappedBy = GoalGetter.CURRENT_TEAM, cascade = { CascadeType.ALL })
 	private Set<GoalGetter> squad = new HashSet<GoalGetter>();
 
 	public Team() {

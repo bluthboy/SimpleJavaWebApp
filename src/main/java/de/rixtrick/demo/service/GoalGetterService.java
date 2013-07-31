@@ -8,6 +8,6 @@ import de.rixtrick.demo.model.GoalGetter;
  */
 public interface GoalGetterService {
 
-	void saveGoalGetter(GoalGetter team);
+	void saveGoalGetter(GoalGetter goalGetter);
 
 }

@@ -11,7 +11,7 @@ import de.rixtrick.demo.model.GoalGetter;
  */
 @Repository
 public class GoalGetterDaoImpl extends
-		GenericHibernateDaoImpl<GoalGetter, Long> implements GoalGetterDao {
+		GenericHibernateDaoImpl<GoalGetter, Integer> implements GoalGetterDao {
 
 	protected GoalGetterDaoImpl() {
 		super(GoalGetter.class);

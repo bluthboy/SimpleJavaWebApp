@@ -35,7 +35,7 @@ public abstract class PersistentObject implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
-	private final Long id = null;
+	private final Integer id = null;
 
 	@Column(name = "created")
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -50,7 +50,7 @@ public abstract class PersistentObject implements Serializable {
 		this.modified = DateTime.now();
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 

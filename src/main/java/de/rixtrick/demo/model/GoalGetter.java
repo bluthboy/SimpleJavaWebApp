@@ -20,7 +20,7 @@ import org.joda.time.LocalDate;
  * 
  */
 @Entity
-@Table(name = "GOAL_GETTERS")
+@Table(name = "GOALGETTERS")
 public class GoalGetter extends PersistentObject {
 
 	private static final long serialVersionUID = -615330164323187979L;
@@ -45,7 +45,7 @@ public class GoalGetter extends PersistentObject {
 	private String position;
 
 	@ManyToOne
-	@JoinColumn(name = CURRENT_TEAM, updatable = false, insertable = false)
+	@JoinColumn(name = CURRENT_TEAM)
 	private Team currentTeam;
 
 	@OneToMany(mappedBy = Goal.GOAL_GETTER, cascade = { CascadeType.ALL })
@@ -117,9 +117,6 @@ public class GoalGetter extends PersistentObject {
 
 	@Override
 	public String toString() {
-		return firstName + " " + lastName + ", id : " + getId()
-				+ ", created at " + getCreated() + ", updated at "
-				+ getModified();
+		return firstName + " " + lastName + " (" + currentTeam.getName() + ")";
 	}
-
 }
