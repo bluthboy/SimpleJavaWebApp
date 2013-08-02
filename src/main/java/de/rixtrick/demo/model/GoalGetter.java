@@ -4,8 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,8 +22,8 @@ public class GoalGetter extends Person {
 
 	private static final long serialVersionUID = -615330164323187979L;
 
-	@Column
-	private String position;
+	@Enumerated(EnumType.STRING)
+	private Position position;
 
 	@ManyToOne
 	@JoinColumn(name = "team_id")
@@ -34,16 +35,8 @@ public class GoalGetter extends Person {
 	public GoalGetter() {
 	}
 
-	public GoalGetter(String firstName, String lastName, String position) {
+	public GoalGetter(String firstName, String lastName, Position position) {
 		super(firstName, lastName);
-		this.position = position;
-	}
-
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
 		this.position = position;
 	}
 

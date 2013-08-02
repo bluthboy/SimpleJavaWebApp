@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.rixtrick.demo.model.Goal;
 import de.rixtrick.demo.model.GoalGetter;
+import de.rixtrick.demo.model.Position;
 import de.rixtrick.demo.model.Team;
 import de.rixtrick.demo.service.GoalGetterService;
 import de.rixtrick.demo.service.GoalService;
@@ -73,7 +74,8 @@ public class ContentInitializer {
 			teamService.saveTeam(specialTeam);
 			LOGGER.info("Created special team : " + specialTeam);
 
-			GoalGetter messi = new GoalGetter("Lionel", "Messi", "FORWARD");
+			GoalGetter messi = new GoalGetter("Lionel", "Messi",
+					Position.FORWARD);
 			messi.setBirthday(new LocalDate(1987, 6, 24));
 			messi.setNationality(new Locale("es_AR"));
 			messi.setCurrentTeam(specialTeam);
