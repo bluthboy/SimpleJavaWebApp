@@ -22,7 +22,6 @@ public class GoalGetterServiceImpl implements GoalGetterService {
 	@Autowired
 	private GoalGetterDao goalGetterDao;
 
-	@Override
 	@Transactional(readOnly = false)
 	public void saveGoalGetter(GoalGetter goalGetter) {
 		goalGetterDao.saveOrUpdate(goalGetter);

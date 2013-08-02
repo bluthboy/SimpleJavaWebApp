@@ -1,30 +1,27 @@
-/**
- * 
- */
 package de.rixtrick.demo.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.rixtrick.demo.dao.GoalDao;
-import de.rixtrick.demo.model.Goal;
-import de.rixtrick.demo.service.GoalService;
+import de.rixtrick.demo.dao.MatchDao;
+import de.rixtrick.demo.model.Match;
+import de.rixtrick.demo.service.MatchService;
 
 /**
  * @author buehner
  * 
  */
-@Service("goalService")
+@Service("matchService")
 @Transactional(readOnly = true)
-public class GoalServiceImpl implements GoalService {
+public class MatchServiceImpl implements MatchService {
 
 	@Autowired
-	private GoalDao goalDao;
+	private MatchDao matchDao;
 
 	@Transactional(readOnly = false)
-	public void saveGoal(Goal goal) {
-		goalDao.saveOrUpdate(goal);
+	public void saveMatch(Match match) {
+		matchDao.saveOrUpdate(match);
 	}
 
 }

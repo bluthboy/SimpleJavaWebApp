@@ -19,7 +19,9 @@ public class Goal extends PersistentObject {
 
 	private static final long serialVersionUID = -5973714555707116724L;
 
-	// TODO Match
+	@ManyToOne
+	@JoinColumn(name = "match_id")
+	private Match match;
 
 	@Column
 	Integer matchMinute;
@@ -45,6 +47,14 @@ public class Goal extends PersistentObject {
 
 	public Goal() {
 
+	}
+
+	public Match getMatch() {
+		return match;
+	}
+
+	public void setMatch(Match match) {
+		this.match = match;
 	}
 
 	public Integer getMatchMinute() {

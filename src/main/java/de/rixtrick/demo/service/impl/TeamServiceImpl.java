@@ -23,7 +23,6 @@ public class TeamServiceImpl implements TeamService {
 	@Autowired
 	private TeamDao teamDao;
 
-	@Override
 	public Team findByTeamName(String name) {
 		Criterion criterion = Restrictions.eq("name", name);
 
@@ -36,20 +35,17 @@ public class TeamServiceImpl implements TeamService {
 		return null;
 	}
 
-	@Override
 	@Transactional(readOnly = false)
 	public void saveTeam(Team team) {
 		teamDao.saveOrUpdate(team);
 	}
 
-	@Override
 	@Transactional(readOnly = false)
 	public void deleteTeam(String name) {
 		Team team = findByTeamName(name);
 		teamDao.delete(team);
 	}
 
-	@Override
 	public List<Team> findTeamsLike(String name) {
 		Criterion criterion = Restrictions.ilike("name", "%" + name + "%");
 		return teamDao.findByCriteria(criterion);

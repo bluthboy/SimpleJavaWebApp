@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,10 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.rixtrick.demo.model.Goal;
 import de.rixtrick.demo.model.GoalGetter;
+import de.rixtrick.demo.model.Match;
 import de.rixtrick.demo.model.Position;
 import de.rixtrick.demo.model.Team;
 import de.rixtrick.demo.service.GoalGetterService;
 import de.rixtrick.demo.service.GoalService;
+import de.rixtrick.demo.service.MatchService;
 import de.rixtrick.demo.service.TeamService;
 
 /**
@@ -50,6 +53,9 @@ public class ContentInitializer {
 	@Autowired
 	private GoalService goalService;
 
+	@Autowired
+	private MatchService matchService;
+
 	/**
 	 * The method called on initialization
 	 */
@@ -70,22 +76,30 @@ public class ContentInitializer {
 			}
 			LOGGER.info("Added " + teamsToCreate + " dummy teams.");
 
-			Team specialTeam = new Team("Special SocCeRcLUB 1900");
-			teamService.saveTeam(specialTeam);
-			LOGGER.info("Created special team : " + specialTeam);
+			Team specialTeam1 = new Team("Special SocCeRcLUB 1900");
+			teamService.saveTeam(specialTeam1);
+			LOGGER.info("Created special team1 : " + specialTeam1);
+
+			Team specialTeam2 = new Team("Special SocCeRcLUB 1900 Nr. 2");
+			teamService.saveTeam(specialTeam2);
+			LOGGER.info("Created special team2 : " + specialTeam2);
+
+			Match match = new Match(new DateTime(2014, 6, 16, 15, 30),
+					specialTeam1, specialTeam2);
+			matchService.saveMatch(match);
+			LOGGER.info("Saved match at " + match.getKickOff());
 
 			GoalGetter messi = new GoalGetter("Lionel", "Messi",
 					Position.FORWARD);
 			messi.setBirthday(new LocalDate(1987, 6, 24));
 			messi.setNationality(new Locale("es_AR"));
-			messi.setCurrentTeam(specialTeam);
+			messi.setCurrentTeam(specialTeam1);
 			goalGetterService.saveGoalGetter(messi);
 			LOGGER.info("Created player " + messi);
 
-			// specialTeam.getSquad().add(messi);// addGoalGetter(goalGetter);
-
 			// messi makes an own goal with a penalty
 			Goal goal = new Goal();
+			goal.setMatch(match);
 			goal.setMatchMinute(17);
 			goal.setGoalGetter(messi);
 			goal.setHomeGoal(true);
