@@ -73,7 +73,7 @@ public class ContentInitializer {
 			teamService.saveTeam(specialTeam);
 			LOGGER.info("Created special team : " + specialTeam);
 
-			GoalGetter messi = new GoalGetter("Lionel", "Messi");
+			GoalGetter messi = new GoalGetter("Lionel", "Messi", "FORWARD");
 			messi.setBirthday(new LocalDate(1987, 6, 24));
 			messi.setNationality(new Locale("es_AR"));
 			messi.setCurrentTeam(specialTeam);

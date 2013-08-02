@@ -33,7 +33,7 @@ public abstract class PersistentObject implements Serializable {
 	@Column(updatable = false, nullable = false)
 	private final Integer id = null;
 
-	@Column
+	@Column(updatable = false)
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private final ReadableDateTime created;
 
@@ -62,9 +62,6 @@ public abstract class PersistentObject implements Serializable {
 		this.modified = modified;
 	}
 
-	/**
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -72,9 +69,6 @@ public abstract class PersistentObject implements Serializable {
 		return result;
 	}
 
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -88,6 +82,11 @@ public abstract class PersistentObject implements Serializable {
 			if (other.created != null)
 				return false;
 		} else if (!created.equals(other.created))
+			return false;
+		if (modified == null) {
+			if (other.modified != null)
+				return false;
+		} else if (!modified.equals(other.modified))
 			return false;
 		return true;
 	}
