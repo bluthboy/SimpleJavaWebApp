@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.rixtrick.demo.dao.TeamDao;
+import de.rixtrick.demo.dao.iface.TeamDao;
 import de.rixtrick.demo.model.Team;
-import de.rixtrick.demo.service.TeamService;
+import de.rixtrick.demo.service.iface.TeamService;
 
 /**
  * @author buehner

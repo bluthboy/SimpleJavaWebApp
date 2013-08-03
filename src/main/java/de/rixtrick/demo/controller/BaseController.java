@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.rixtrick.demo.model.Team;
-import de.rixtrick.demo.service.TeamService;
+import de.rixtrick.demo.service.iface.TeamService;
 
 @Controller
 @RequestMapping("/")

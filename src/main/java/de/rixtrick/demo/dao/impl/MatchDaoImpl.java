@@ -2,7 +2,7 @@ package de.rixtrick.demo.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
-import de.rixtrick.demo.dao.MatchDao;
+import de.rixtrick.demo.dao.iface.MatchDao;
 import de.rixtrick.demo.model.Match;
 
 /**

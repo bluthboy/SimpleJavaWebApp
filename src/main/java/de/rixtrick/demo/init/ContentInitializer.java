@@ -13,12 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import de.rixtrick.demo.model.Goal;
 import de.rixtrick.demo.model.GoalGetter;
 import de.rixtrick.demo.model.Match;
+import de.rixtrick.demo.model.MatchDay;
 import de.rixtrick.demo.model.Position;
 import de.rixtrick.demo.model.Team;
-import de.rixtrick.demo.service.GoalGetterService;
-import de.rixtrick.demo.service.GoalService;
-import de.rixtrick.demo.service.MatchService;
-import de.rixtrick.demo.service.TeamService;
+import de.rixtrick.demo.service.iface.GoalGetterService;
+import de.rixtrick.demo.service.iface.GoalService;
+import de.rixtrick.demo.service.iface.MatchDayService;
+import de.rixtrick.demo.service.iface.MatchService;
+import de.rixtrick.demo.service.iface.TeamService;
 
 /**
  * @author buehner
@@ -37,11 +39,15 @@ public class ContentInitializer {
 	/**
 	 * Flag symbolizing if something should be initialized on startup
 	 */
+	@Autowired
+	@Qualifier("contentInitEnabled")
 	private Boolean contentInitEnabled;
 
 	/**
 	 * Number of dummy-entries to create when contentInitEnabled=true
 	 */
+	@Autowired
+	@Qualifier("numberOfDummies")
 	private int teamsToCreate;
 
 	@Autowired
@@ -56,58 +62,27 @@ public class ContentInitializer {
 	@Autowired
 	private MatchService matchService;
 
+	@Autowired
+	private MatchDayService matchDayService;
+
 	/**
 	 * The method called on initialization
 	 */
 	public void initializeDatabaseContent() {
 
 		if (this.contentInitEnabled.equals(true)) {
-			LOGGER.info("Initializing database with " + teamsToCreate
-					+ " dummy teams");
+			createDummyTeams();
 
-			String teamName = "FC Soccerclub ";
+			Team specialTeam1 = createTeam("Special SocCeRcLUB 1900");
+			Team specialTeam2 = createTeam("Special SocCeRcLUB 1900 Nr. 2");
 
-			for (int i = 1; i <= teamsToCreate; i++) {
-				String dummyName = teamName + i;
-				Team team = new Team(dummyName);
+			MatchDay quarterFinal = createMatchDay();
 
-				teamService.saveTeam(team);
-				LOGGER.debug("Saved Team " + dummyName);
-			}
-			LOGGER.info("Added " + teamsToCreate + " dummy teams.");
+			Match match = createMatch(quarterFinal, specialTeam1, specialTeam2);
 
-			Team specialTeam1 = new Team("Special SocCeRcLUB 1900");
-			teamService.saveTeam(specialTeam1);
-			LOGGER.info("Created special team1 : " + specialTeam1);
+			GoalGetter messi = createGoalGetterOfTeam(specialTeam1);
 
-			Team specialTeam2 = new Team("Special SocCeRcLUB 1900 Nr. 2");
-			teamService.saveTeam(specialTeam2);
-			LOGGER.info("Created special team2 : " + specialTeam2);
-
-			Match match = new Match(new DateTime(2014, 6, 16, 15, 30),
-					specialTeam1, specialTeam2);
-			matchService.saveMatch(match);
-			LOGGER.info("Saved match at " + match.getKickOff());
-
-			GoalGetter messi = new GoalGetter("Lionel", "Messi",
-					Position.FORWARD);
-			messi.setBirthday(new LocalDate(1987, 6, 24));
-			messi.setNationality(new Locale("es_AR"));
-			messi.setCurrentTeam(specialTeam1);
-			goalGetterService.saveGoalGetter(messi);
-			LOGGER.info("Created player " + messi);
-
-			// messi makes an own goal with a penalty
-			Goal goal = new Goal();
-			goal.setMatch(match);
-			goal.setMatchMinute(17);
-			goal.setGoalGetter(messi);
-			goal.setHomeGoal(true);
-			goal.setOverTime(false);
-			goal.setOwnGoal(true);
-			goal.setPenalty(true);
-			goalService.saveGoal(goal);
-			LOGGER.info("Saved a strange goal with ID " + goal.getId());
+			createGoal(match, messi);
 
 		} else {
 			LOGGER.info("Not initializing anything");
@@ -120,8 +95,67 @@ public class ContentInitializer {
 		LOGGER.info("Found " + teams.size() + " teams.");
 	}
 
-	@Autowired
-	@Qualifier("contentInitEnabled")
+	private MatchDay createMatchDay() {
+		MatchDay matchDay = new MatchDay("Quarter Final of WorldCup", 5);
+		matchDayService.saveMatchDay(matchDay);
+		return matchDay;
+	}
+
+	private void createGoal(Match match, GoalGetter messi) {
+		Goal goal = new Goal();
+		goal.setMatch(match);
+		goal.setMatchMinute(17);
+		goal.setGoalGetter(messi);
+		goal.setHomeGoal(true);
+		goal.setOverTime(false);
+		goal.setOwnGoal(true);
+		goal.setPenalty(true);
+		goalService.saveGoal(goal);
+		LOGGER.info("Saved a strange goal with ID " + goal.getId());
+	}
+
+	private GoalGetter createGoalGetterOfTeam(Team team) {
+		GoalGetter goalGetter = new GoalGetter("Lionel", "Messi",
+				Position.FORWARD);
+		goalGetter.setBirthday(new LocalDate(1987, 6, 24));
+		goalGetter.setNationality(new Locale("es_AR"));
+		goalGetter.setCurrentTeam(team);
+		goalGetterService.saveGoalGetter(goalGetter);
+		LOGGER.info("Created player " + goalGetter);
+		return goalGetter;
+	}
+
+	private Match createMatch(MatchDay matchDay, Team team1, Team team2) {
+		Match match = new Match(new DateTime(2014, 6, 16, 15, 30), team1, team2);
+		match.setMatchDay(matchDay);
+		matchService.saveMatch(match);
+		LOGGER.info("Saved match at " + match.getKickOff());
+		return match;
+	}
+
+	private Team createTeam(String name) {
+		Team team = new Team(name);
+		teamService.saveTeam(team);
+		LOGGER.info("Created special team1 : " + team);
+		return team;
+	}
+
+	private void createDummyTeams() {
+		LOGGER.info("Initializing database with " + teamsToCreate
+				+ " dummy teams");
+
+		String teamName = "FC Soccerclub ";
+
+		for (int i = 1; i <= teamsToCreate; i++) {
+			String dummyName = teamName + i;
+			Team team = new Team(dummyName);
+
+			teamService.saveTeam(team);
+			LOGGER.debug("Saved Team " + dummyName);
+		}
+		LOGGER.info("Added " + teamsToCreate + " dummy teams.");
+	}
+
 	public void setContentInitEnabled(Boolean contentInitEnabled) {
 		this.contentInitEnabled = contentInitEnabled;
 	}
@@ -142,8 +176,6 @@ public class ContentInitializer {
 		return teamsToCreate;
 	}
 
-	@Autowired
-	@Qualifier("numberOfDummies")
 	public void setTeamsToCreate(int teamsToCreate) {
 		this.teamsToCreate = teamsToCreate;
 	}

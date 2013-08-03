@@ -1,4 +1,4 @@
-package de.rixtrick.demo.dao;
+package de.rixtrick.demo.dao.iface;
 
 import de.rixtrick.demo.model.Match;
 

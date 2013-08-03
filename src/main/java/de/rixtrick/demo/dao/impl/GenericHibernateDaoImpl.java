@@ -10,7 +10,7 @@ import org.hibernate.criterion.Criterion;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.rixtrick.demo.dao.GenericHibernateDao;
+import de.rixtrick.demo.dao.iface.GenericHibernateDao;
 import de.rixtrick.demo.model.PersistentObject;
 
 /**

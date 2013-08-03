@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import de.rixtrick.demo.dao.TeamDao;
+import de.rixtrick.demo.dao.iface.TeamDao;
 import de.rixtrick.demo.model.Team;
 
 /**

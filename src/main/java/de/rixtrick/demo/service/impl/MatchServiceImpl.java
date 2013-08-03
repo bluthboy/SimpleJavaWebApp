@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.rixtrick.demo.dao.MatchDao;
+import de.rixtrick.demo.dao.iface.MatchDao;
 import de.rixtrick.demo.model.Match;
-import de.rixtrick.demo.service.MatchService;
+import de.rixtrick.demo.service.iface.MatchService;
 
 /**
  * @author buehner

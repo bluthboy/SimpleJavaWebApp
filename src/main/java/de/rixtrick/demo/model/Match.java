@@ -40,7 +40,9 @@ public class Match extends PersistentObject {
 	@OneToMany(mappedBy = "match", cascade = { CascadeType.ALL })
 	private Set<Goal> goals = new HashSet<Goal>();
 
-	// TODO MatchDay
+	@ManyToOne
+	@JoinColumn(name = "matchday_id")
+	private MatchDay matchDay;
 
 	public Match() {
 	}
@@ -81,6 +83,14 @@ public class Match extends PersistentObject {
 
 	public void setGoals(Set<Goal> goals) {
 		this.goals = goals;
+	}
+
+	public MatchDay getMatchDay() {
+		return matchDay;
+	}
+
+	public void setMatchDay(MatchDay matchDay) {
+		this.matchDay = matchDay;
 	}
 
 }

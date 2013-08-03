@@ -1,4 +1,4 @@
-package de.rixtrick.demo.service;
+package de.rixtrick.demo.service.iface;
 
 import java.util.List;
 
@@ -16,6 +16,6 @@ public interface TeamService {
 
 	void deleteTeam(String name);
 
-	public List<Team> findTeamsLike(String name);
+	List<Team> findTeamsLike(String name);
 
 }

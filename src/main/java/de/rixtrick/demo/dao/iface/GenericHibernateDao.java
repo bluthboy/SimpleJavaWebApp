@@ -1,4 +1,4 @@
-package de.rixtrick.demo.dao;
+package de.rixtrick.demo.dao.iface;
 
 import java.util.List;
 

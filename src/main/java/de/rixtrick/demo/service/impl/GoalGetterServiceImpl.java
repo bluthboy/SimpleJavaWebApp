@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.rixtrick.demo.dao.GoalGetterDao;
+import de.rixtrick.demo.dao.iface.GoalGetterDao;
 import de.rixtrick.demo.model.GoalGetter;
-import de.rixtrick.demo.service.GoalGetterService;
+import de.rixtrick.demo.service.iface.GoalGetterService;
 
 /**
  * @author buehner

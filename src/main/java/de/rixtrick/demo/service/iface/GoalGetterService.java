@@ -1,4 +1,4 @@
-package de.rixtrick.demo.service;
+package de.rixtrick.demo.service.iface;
 
 import de.rixtrick.demo.model.GoalGetter;
 
