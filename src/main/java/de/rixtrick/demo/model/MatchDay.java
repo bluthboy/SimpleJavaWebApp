@@ -1,10 +1,13 @@
 package de.rixtrick.demo.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,18 +21,21 @@ public class MatchDay extends PersistentObject {
 
 	private static final long serialVersionUID = -5590146487017453822L;
 
+	@Column(length = 64)
 	private String name;
 
 	private Integer orderIndex;
 
-	// TODO League
+	@ManyToOne
+	@JoinColumn(name = "competition_id")
+	private Competition competition;
 
 	// LocalDate start;
 
 	// LocalDate end;
 
 	@OneToMany(mappedBy = "matchDay", cascade = { CascadeType.ALL })
-	private Set<Match> matches = new HashSet<Match>();
+	private List<Match> matches = new ArrayList<Match>();
 
 	public MatchDay() {
 	}
@@ -55,12 +61,16 @@ public class MatchDay extends PersistentObject {
 		this.orderIndex = orderIndex;
 	}
 
-	public Set<Match> getMatches() {
-		return matches;
+	public Competition getCompetition() {
+		return competition;
 	}
 
-	public void setMatches(Set<Match> matches) {
-		this.matches = matches;
+	public void setCompetition(Competition competition) {
+		this.competition = competition;
+	}
+
+	public List<Match> getMatches() {
+		return matches;
 	}
 
 }

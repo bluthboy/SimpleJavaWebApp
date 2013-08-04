@@ -1,6 +1,3 @@
-/**
- * 
- */
 package de.rixtrick.demo.service.iface;
 
 import de.rixtrick.demo.model.Goal;

@@ -1,5 +1,7 @@
 package de.rixtrick.demo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,11 @@ public class MatchDayServiceImpl implements MatchDayService {
 	@Transactional(readOnly = false)
 	public void saveMatchDay(MatchDay matchDay) {
 		matchDayDao.saveOrUpdate(matchDay);
+	}
+
+	@Override
+	public List<MatchDay> findAllMatchDays() {
+		return matchDayDao.findAll();
 	}
 
 }

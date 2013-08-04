@@ -2,6 +2,7 @@ package de.rixtrick.demo.init;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -10,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.rixtrick.demo.model.Competition;
 import de.rixtrick.demo.model.Goal;
 import de.rixtrick.demo.model.GoalGetter;
 import de.rixtrick.demo.model.Match;
 import de.rixtrick.demo.model.MatchDay;
 import de.rixtrick.demo.model.Position;
 import de.rixtrick.demo.model.Team;
+import de.rixtrick.demo.service.iface.CompetitionService;
 import de.rixtrick.demo.service.iface.GoalGetterService;
 import de.rixtrick.demo.service.iface.GoalService;
 import de.rixtrick.demo.service.iface.MatchDayService;
@@ -65,6 +68,9 @@ public class ContentInitializer {
 	@Autowired
 	private MatchDayService matchDayService;
 
+	@Autowired
+	private CompetitionService competitionService;
+
 	/**
 	 * The method called on initialization
 	 */
@@ -76,7 +82,11 @@ public class ContentInitializer {
 			Team specialTeam1 = createTeam("Special SocCeRcLUB 1900");
 			Team specialTeam2 = createTeam("Special SocCeRcLUB 1900 Nr. 2");
 
-			MatchDay quarterFinal = createMatchDay();
+			Competition worldCup = createCompetition("WorldCup", "Soccer", 1);
+
+			MatchDay quarterFinal = createMatchDay("Quarter Final of WorldCup",
+					worldCup, 5);
+			createMatchDay("Semi Final of WorldCup", worldCup, 4);
 
 			Match match = createMatch(quarterFinal, specialTeam1, specialTeam2);
 
@@ -88,15 +98,46 @@ public class ContentInitializer {
 			LOGGER.info("Not initializing anything");
 		}
 
+		makeSomeChecks();
+	}
+
+	private void makeSomeChecks() {
 		String likeName = "ceRclub 1";
 		LOGGER.info("Trying to find some teams like '" + likeName + "'");
 
 		List<Team> teams = teamService.findTeamsLike(likeName);
 		LOGGER.info("Found " + teams.size() + " teams.");
+
+		List<MatchDay> matchDays = matchDayService.findAllMatchDays();
+		LOGGER.info("Found a total of " + matchDays.size() + " match days.");
+
+		MatchDay first = matchDays.get(0);
+		LOGGER.info("The first found matchDay: " + first.getName());
+
+		Set<Competition> competitions = competitionService
+				.findAllCompetitions();
+		LOGGER.info("Found a total of " + competitions.size() + " competions");
+
+		for (Competition competition : competitions) {
+			List<MatchDay> matchDaysOfCompetition = competition.getMatchDays();
+			LOGGER.info("This is the first match day of competition "
+					+ competition.getName() + " (respecting order): "
+					+ matchDaysOfCompetition.get(0).getName());
+		}
 	}
 
-	private MatchDay createMatchDay() {
-		MatchDay matchDay = new MatchDay("Quarter Final of WorldCup", 5);
+	private Competition createCompetition(String name, String sport,
+			Integer level) {
+		Competition competition = new Competition(name, sport, level, 2014,
+				2014);
+		competitionService.saveCompetition(competition);
+		return competition;
+	}
+
+	private MatchDay createMatchDay(String name, Competition competition,
+			Integer orderIndex) {
+		MatchDay matchDay = new MatchDay(name, orderIndex);
+		matchDay.setCompetition(competition);
 		matchDayService.saveMatchDay(matchDay);
 		return matchDay;
 	}

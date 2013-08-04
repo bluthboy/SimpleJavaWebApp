@@ -1,5 +1,7 @@
 package de.rixtrick.demo.service.iface;
 
+import java.util.List;
+
 import de.rixtrick.demo.model.MatchDay;
 
 /**
@@ -9,5 +11,7 @@ import de.rixtrick.demo.model.MatchDay;
 public interface MatchDayService {
 
 	void saveMatchDay(MatchDay matchDay);
+
+	List<MatchDay> findAllMatchDays();
 
 }

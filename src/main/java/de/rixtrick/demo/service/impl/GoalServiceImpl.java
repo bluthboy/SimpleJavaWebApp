@@ -1,6 +1,3 @@
-/**
- * 
- */
 package de.rixtrick.demo.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
