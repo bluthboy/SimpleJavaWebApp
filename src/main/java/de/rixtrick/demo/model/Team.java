@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,6 +28,9 @@ public class Team extends PersistentObject {
 
 	@OneToMany(mappedBy = "currentTeam", cascade = { CascadeType.ALL })
 	private Set<GoalGetter> squad = new HashSet<GoalGetter>();
+
+	@ManyToMany(mappedBy = "teams")
+	private Set<Competition> competitions = new HashSet<Competition>();
 
 	public Team() {
 	}

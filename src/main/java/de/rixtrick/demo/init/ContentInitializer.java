@@ -82,7 +82,8 @@ public class ContentInitializer {
 			Team specialTeam1 = createTeam("Special SocCeRcLUB 1900");
 			Team specialTeam2 = createTeam("Special SocCeRcLUB 1900 Nr. 2");
 
-			Competition worldCup = createCompetition("WorldCup", "Soccer", 1);
+			Competition worldCup = createCompetition("WorldCup", "Soccer", 1,
+					specialTeam1, specialTeam2);
 
 			MatchDay quarterFinal = createMatchDay("Quarter Final of WorldCup",
 					worldCup, 5);
@@ -127,9 +128,12 @@ public class ContentInitializer {
 	}
 
 	private Competition createCompetition(String name, String sport,
-			Integer level) {
+			Integer level, Team... teams) {
 		Competition competition = new Competition(name, sport, level, 2014,
 				2014);
+		for (Team team : teams) {
+			competition.getTeams().add(team);
+		}
 		competitionService.saveCompetition(competition);
 		return competition;
 	}

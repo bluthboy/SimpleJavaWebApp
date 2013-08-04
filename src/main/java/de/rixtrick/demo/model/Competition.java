@@ -1,12 +1,15 @@
 package de.rixtrick.demo.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -39,6 +42,9 @@ public class Competition extends PersistentObject {
 	@OneToMany(mappedBy = "competition", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	@OrderBy("orderIndex")
 	private List<MatchDay> matchDays = new ArrayList<MatchDay>();
+
+	@ManyToMany(cascade = { CascadeType.ALL })
+	private Set<Team> teams = new HashSet<Team>();
 
 	public Competition() {
 	}
@@ -106,6 +112,14 @@ public class Competition extends PersistentObject {
 
 	public void setMatchDays(List<MatchDay> matchDays) {
 		this.matchDays = matchDays;
+	}
+
+	public Set<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
 	}
 
 }
