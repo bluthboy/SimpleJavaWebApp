@@ -1,4 +1,4 @@
-Java Web Project for persisting sport statistics, created with Maven and Eclipse.
+Java Backend to read and persist sport statistics, created with Maven and Eclipse.
 
 Using
   - Spring 3
