@@ -1,4 +1,4 @@
-Basic Java Web Project for Eclipse, created with Maven and used as a Sandbox.
+Java Web Project for persisting sport statistics, created with Maven and Eclipse.
 
 Using
   - Spring 3
@@ -7,8 +7,4 @@ Using
   - c3p0 Connection Pooling
   - Jodatime
 
-Inspired by
-
-  - http://www.mkyong.com/maven/how-to-create-a-web-application-project-with-maven/
-  - http://ocpsoft.org/java/hibernate-use-a-base-class-to-map-common-fields/
-  - https://community.jboss.org/wiki/GenericDataAccessObjects
+Based on https://github.com/buehner/SimpleJavaWebApp.
